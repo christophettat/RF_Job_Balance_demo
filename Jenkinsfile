@@ -5,11 +5,11 @@ node {
       git 'https://github.com/christophettat/RF_Job_Balance_demo.git'
       }
    stage('Run tests') {
-      steps{
+    
       // Run the maven build
 //    sh './run_tests.sh'
       runTests()
-      }
+      
    }
    stage('Results') {
       junit '**/Results/xout.xml'
