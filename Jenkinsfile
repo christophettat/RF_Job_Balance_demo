@@ -53,7 +53,7 @@ void runTests() {
 
         /* Call the Maven build with tests. */
         echo 'Launching the tests'
-        launchRF
+        sh launchRF
         echo 'tests have run'
         /* Archive the test results */
         junit '**/Results/xout	.xml'
