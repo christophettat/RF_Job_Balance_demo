@@ -12,7 +12,7 @@ node {
       
    }
    stage('Results') {
-      junit '**/Results/xout.xml'
+   //   junit '**/Results/xout.xml'
    }
 }
 
@@ -56,7 +56,7 @@ void runTests() {
         sh launchRF
         echo 'tests have run'
         /* Archive the test results */
-        junit '**/Results/xout	.xml'
+      junit '**/Results/xout.xml'
       }
     }
   }
