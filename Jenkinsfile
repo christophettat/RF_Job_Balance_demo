@@ -5,17 +5,18 @@ node {
       git 'https://github.com/christophettat/RF_Job_Balance_demo.git'
       }
    stage('Run tests') {
+      steps{
       // Run the maven build
 //    sh './run_tests.sh'
-    runTests()
-
+      runTests()
+      }
    }
    stage('Results') {
       junit '**/Results/xout.xml'
    }
 }
 
-void runTests(def args) {
+void runTests() {
   /* Request the test groupings.  Based on previous test results. */
   /* see https://wiki.jenkins-ci.org/display/JENKINS/Parallel+Test+Executor+Plugin and demo on github
   /* Using arbitrary parallelism of 4 and "generateInclusions" feature added in v1.8. */
