@@ -53,7 +53,7 @@ void runTests(def args) {
         /* Call the Maven build with tests. */
          launchRF
         /* Archive the test results */
-        junit '**/Results/xout.xml'
+        junit '**/Results/xout	.xml'
       }
     }
   }
