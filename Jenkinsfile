@@ -20,7 +20,7 @@ void runTests() {
   /* Request the test groupings.  Based on previous test results. */
   /* see https://wiki.jenkins-ci.org/display/JENKINS/Parallel+Test+Executor+Plugin and demo on github
   /* Using arbitrary parallelism of 4 and "generateInclusions" feature added in v1.8. */
-  def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
+  def splits = splitTests parallelism: [$class: 'TimeDrivenParallelism', size: 4], generateInclusions: true
 
   /* Create dictionary to hold set of parallel test executions. */
   def testGroups = [:]
