@@ -1,0 +1,1 @@
+robot -x xout.xml --outputdir ./Results ./TestCases
