@@ -21,7 +21,7 @@ void runTests() {
   /* see https://wiki.jenkins-ci.org/display/JENKINS/Parallel+Test+Executor+Plugin and demo on github
   /* Using arbitrary parallelism of 4 and "generateInclusions" feature added in v1.8. */
 /*  def splits = splitTests parallelism: [$class: 'TimeDrivenParallelism', mins: 4], generateInclusions: true */
-  def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
+  def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: false
 
 
   /* Create dictionary to hold set of parallel test executions. */
@@ -45,7 +45,6 @@ void runTests() {
 
         /* Write includesFile or excludesFile for tests.  Split record provided by splitTests. */
         /* Tell Maven to read the appropriate file. */
-       split.includes = false
        if (split.includes) {
         writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
           //launchRF += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
