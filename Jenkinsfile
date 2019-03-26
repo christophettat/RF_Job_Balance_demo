@@ -39,7 +39,7 @@ void runTests() {
       node {
         checkout scm
 
-        def launchRF = 'robot -x xout.xml --outputdir ./Results ./TestCases'
+        def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-includes-${i}.txt ./TestCases"
 
         /* Write includesFile or excludesFile for tests.  Split record provided by splitTests. */
         /* Tell Maven to read the appropriate file. */
