@@ -1,5 +1,4 @@
 node {
-   def mvnHome
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git 'https://github.com/christophettat/RF_Job_Balance_demo.git'
@@ -22,6 +21,7 @@ void runTests() {
     testGroups["split-${i}"] = {  // example, "split3"
       node {
         checkout scm
+        echo "Running ${i}"
         def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt ./TestCases"
         
         writeFile file: "parallel-test-excludes-${i}.txt", text: split.list.join("\n")
