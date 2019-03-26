@@ -21,7 +21,7 @@ void runTests() {
   /* see https://wiki.jenkins-ci.org/display/JENKINS/Parallel+Test+Executor+Plugin and demo on github
   /* Using arbitrary parallelism of 4 and "generateInclusions" feature added in v1.8. */
 /*  def splits = splitTests parallelism: [$class: 'TimeDrivenParallelism', mins: 4], generateInclusions: true */
-  def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: false
+    def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: false
 
 
   /* Create dictionary to hold set of parallel test executions. */
@@ -40,17 +40,13 @@ void runTests() {
     testGroups["split-${i}"] = {  // example, "split3"
       node {
         checkout scm
-
         def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt ./TestCases"
-
         /* Write includesFile or excludesFile for tests.  Split record provided by splitTests. */
         /* Tell Maven to read the appropriate file. */
        if (split.includes) {
         writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
-          //launchRF += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
         } else {
           writeFile file: "parallel-test-excludes-${i}.txt", text: split.list.join("\n")
-          //launchRF += " -Dsurefire.excludesFile=target/parallel-test-excludes-${i}.txt"
         }
 
         /* Call the Maven build with tests. */
