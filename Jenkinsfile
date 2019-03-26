@@ -18,7 +18,7 @@ void runTests() {
 
   for (int i = 0; i < splits.size(); i++) {
     def split = splits[i]
-    testGroups["split-${i}"] = {  // example, "split3"
+    testGroups["split-${i}"] = { 
       node {
         checkout scm
         echo "Running ${i}"
