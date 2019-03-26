@@ -39,12 +39,13 @@ void runTests() {
       node {
         checkout scm
 
-        def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-includes-${i}.txt ./TestCases"
+        def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt ./TestCases"
 
         /* Write includesFile or excludesFile for tests.  Split record provided by splitTests. */
         /* Tell Maven to read the appropriate file. */
-        if (split.includes) {
-          writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
+       split.includes = false
+       if (split.includes) {
+        writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
           //launchRF += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
         } else {
           writeFile file: "parallel-test-excludes-${i}.txt", text: split.list.join("\n")
