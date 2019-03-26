@@ -43,11 +43,11 @@ void runTests() {
         def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt ./TestCases"
         /* Write includesFile or excludesFile for tests.  Split record provided by splitTests. */
         /* Tell Maven to read the appropriate file. */
-       if (split.includes) {
-        writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
-        } else {
+//       if (split.includes) {
+//        writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
+//        } else {
           writeFile file: "parallel-test-excludes-${i}.txt", text: split.list.join("\n")
-        }
+//        }
 
         /* Call the Maven build with tests. */
         echo 'Launching the tests'
