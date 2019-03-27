@@ -1,9 +1,11 @@
 node {
-   stage 'Preparation'
+   stage ('Preparation') {
       git 'https://github.com/christophettat/RF_Job_Balance_demo.git'
+   }
       
-   stage 'Test'
+   stage ('Test'){
       runTests()      
+   }
 }
 
 void runTests(def args) {
