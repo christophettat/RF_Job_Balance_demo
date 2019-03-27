@@ -1,14 +1,12 @@
 node {
-   stage('Preparation') { // for display purposes
-      // Get some code from a GitHub repository
+   stage 'Preparation'
       git 'https://github.com/christophettat/RF_Job_Balance_demo.git'
-      }
-   stage('Run tests') {
+      
+   stage 'Test'
       runTests()      
-   }
 }
 
-void runTests() {
+void runTests(def args) {
 //  def splits = splitTests parallelism: [$class: 'TimeDrivenParallelism', mins: 4], generateInclusions: true
     def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
 
