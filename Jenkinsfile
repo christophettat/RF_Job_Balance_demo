@@ -18,6 +18,7 @@ void runTests(def args) {
     def split = splits[i]
     testGroups["part-${i}"] = { 
       node {
+        cleanWs()
         checkout scm
         echo "Running ${i}"
         def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt ./TestCases"
