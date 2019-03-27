@@ -1,7 +1,7 @@
 *** Test Cases ***
 My Test 1
-	sleep		70
+	sleep		7
 	Log		TOTO
 My Test 2
-	sleep		100
+	sleep		10
 	Log		Toto
