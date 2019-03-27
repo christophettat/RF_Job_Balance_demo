@@ -34,5 +34,6 @@ void runTests() {
       }
     }
   }
+  echo "Size of Test Group is: ${testGroups.size()}"
   parallel testGroups
 }
