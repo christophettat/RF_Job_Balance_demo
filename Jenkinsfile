@@ -11,14 +11,14 @@ node {
 void runTests() {
 //  def splits = splitTests parallelism: [$class: 'TimeDrivenParallelism', mins: 4], generateInclusions: true
     def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
-
-
   /* Create dictionary to hold set of parallel test executions. */
   def testGroups = [:]
 
   for (int i = 0; i < splits.size(); i++) {
     
     testGroups["part-${i}"] = {
+        echo "Running ${i}"
+      
       node {
         cleanWs()
         checkout scm
