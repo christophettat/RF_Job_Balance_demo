@@ -18,7 +18,8 @@ void runTests() {
 
   for (int i = 0; i < splits.size(); i++) {
     def split = splits[i]
-    testGroups["part-${i}"] = { i ->
+    testGroups["part-${i}"] = {
+      echo "$i"
       node {
         cleanWs()
         checkout scm
