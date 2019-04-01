@@ -26,7 +26,7 @@ void runTests() {
         echo "Running ${i}"
         def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt ./TestCases"
         
-        writeFile file: "parallel-test-excludes-${i}.txt", text: split.list.join("\n")
+        writeFile file: "parallel-test-excludes-${i}.txt", text: splits[i].list.join("\n")
 
         echo 'Launching the tests'
         sh launchRF
