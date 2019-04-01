@@ -14,7 +14,8 @@ void runTests() {
   /* Create dictionary to hold set of parallel test executions. */
   def testGroups = [:]
 
-  for (int i = 0; i < splits.size(); i++) {
+  for (int j = 0; j < splits.size(); j++) {
+    def i=j
     
     testGroups["part-${i}"] = {
         echo "Running ${i}"
