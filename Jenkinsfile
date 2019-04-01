@@ -37,7 +37,7 @@ void runTests() {
         }
 
         echo 'Launching the tests'
-        sh "cat parallel-test-excludes-${i}.txt"
+        sh "cat parallel-test*.txt"
         sh launchRF
         echo 'tests have run'
         /* Archive the test results */
