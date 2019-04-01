@@ -10,7 +10,7 @@ node {
 
 void runTests() {
 //  def splits = splitTests parallelism: [$class: 'TimeDrivenParallelism', mins: 4], generateInclusions: true
-    def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4]
+    def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: false
   /* Create dictionary to hold set of parallel test executions. */
   def testGroups = [:]
 
