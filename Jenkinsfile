@@ -29,6 +29,7 @@ void runTests() {
         writeFile file: "parallel-test-excludes-${i}.txt", text: splits[i].list.join("\n")
 
         echo 'Launching the tests'
+        sh "cat parallel-test-excludes-${i}.txt"
         sh launchRF
         echo 'tests have run'
         /* Archive the test results */
