@@ -30,10 +30,10 @@ void runTests() {
 
          if (split.includes) {
           writeFile file: "target/parallel-test-includes-${i}.txt", text: split.list.join("\n")
-          mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
+          //mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
         } else {
           writeFile file: "target/parallel-test-excludes-${i}.txt", text: split.list.join("\n")
-          mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${i}.txt"
+          //mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${i}.txt"
         }
 
         echo 'Launching the tests'
