@@ -24,15 +24,17 @@ void runTests() {
         cleanWs()
         checkout scm
         echo "Running ${i}"
-        def launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt ./TestCases"
+        def launchRF = ""
         
         //writeFile file: "parallel-test-excludes-${i}.txt", text: splits[i].list.join("\n")
 
          if (split.includes) {
           writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
+          launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt:1 ./TestCases"
           //mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
         } else {
           writeFile file: "parallel-test-excludes-${i}.txt", text: split.list.join("\n")
+          launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt:0 ./TestCases"
           //mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${i}.txt"
         }
 
