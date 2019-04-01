@@ -34,7 +34,7 @@ void runTests() {
         echo 'tests have run'
         /* Archive the test results */
       junit '**/Results/xout.xml'
-      archiveArtifacts artifacts: '**/parallel*.jar', fingerprint: true
+      archiveArtifacts artifacts: '**/parallel*.txt', fingerprint: true
       }
     }
   }
