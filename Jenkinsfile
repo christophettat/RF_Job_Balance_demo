@@ -59,7 +59,7 @@ return splits.size()
 }
 
 void aggregate_results(int nrjobs){
-	dir ('/Results') {
+	dir ('./Results') {
 		for (int j = 0; j < nrjobs; j++) {
 			unstash "outputxml_job_${j}"
 		}
