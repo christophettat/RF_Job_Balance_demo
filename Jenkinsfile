@@ -1,15 +1,15 @@
 node {
-   stage ('Preparation') {
-      git 'https://github.com/christophettat/RF_Job_Balance_demo.git'
-   }
+     def nrOfJobs=1
+     stage ('Preparation') {
+        git 'https://github.com/christophettat/RF_Job_Balance_demo.git'
+    }
       
-   stage ('Test'){
-   def nrOfJobs=runTests()      
-   }
+   	stage ('Test'){
+ 		nrOfJobs=runTests()      
+   	}
    
-   stage ('Aggregate Results')
-   aggregate_results(nrOfJobs)
-   
+   	stage ('Aggregate Results')
+   	aggregate_results(nrOfJobs) 
 }
 
 int runTests() {
