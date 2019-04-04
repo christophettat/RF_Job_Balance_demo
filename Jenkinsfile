@@ -55,7 +55,7 @@ int runTests() {
   }
   echo "Size of Test Group is: ${testGroups.size()}"
   parallel testGroups
-return i
+return splits.size()
 }
 
 void aggregate_results(int nrjobs){
