@@ -66,6 +66,7 @@ void aggregate_results(int nrjobs){
 			rebot_cmd = rebot_cmd + " output_job_${j}.xml"
 		}
 	sh "ls -ltr"
+	sh "pwd"
 	sh rebot_cmd
 	}
 }
