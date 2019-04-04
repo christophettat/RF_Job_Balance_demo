@@ -9,6 +9,7 @@ node {
    	}
    
    	stage ('Aggregate Results')
+   	        cleanWs()
    	aggregate_results(nrOfJobs) 
 }
 
