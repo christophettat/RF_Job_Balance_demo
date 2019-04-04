@@ -4,11 +4,15 @@ node {
    }
       
    stage ('Test'){
-      runTests()      
+   def nrOfJobs=runTests()      
    }
+   
+   Stage ('Aggregate Results')
+   aggregate_results(nrOfJobs)
+   
 }
 
-void runTests() {
+int runTests() {
     //def splits = splitTests parallelism: [$class: 'TimeDrivenParallelism', mins: 1], generateInclusions: true
     def splits = splitTests parallelism: [$class: 'CountDrivenParallelism', size: 4], generateInclusions: true
   /* Create dictionary to hold set of parallel test executions. */
@@ -30,11 +34,11 @@ void runTests() {
 
          if (split.includes) {
           writeFile file: "parallel-test-includes-${i}.txt", text: split.list.join("\n")
-          launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-includes-${i}.txt:1 ./TestCases"
+          launchRF = "robot -x xout.xml --outputdir ./Results --outputfile output_job_${i}.xml --report NONE --log NONE --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-includes-${i}.txt:1 ./TestCases"
           //mavenInstall += " -Dsurefire.includesFile=target/parallel-test-includes-${i}.txt"
         } else {
           writeFile file: "parallel-test-excludes-${i}.txt", text: split.list.join("\n")
-          launchRF = "robot -x xout.xml --outputdir ./Results --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt:0 ./TestCases"
+          launchRF = "robot -x xout.xml --outputdir ./Results --outputfile output_job_${i}.xml --report NONE --log NONE --prerunmodifier ./PythonHelpers/ExcludeTests.py:parallel-test-excludes-${i}.txt:0 ./TestCases"
           //mavenInstall += " -Dsurefire.excludesFile=target/parallel-test-excludes-${i}.txt"
         }
 
@@ -44,10 +48,20 @@ void runTests() {
         echo 'tests have run'
         /* Archive the test results */
       junit '**/Results/xout.xml'
-      archiveArtifacts artifacts: '**/parallel*.txt', fingerprint: true
+      //archiveArtifacts artifacts: '**/parallel*.txt', fingerprint: true
+      stash includes: '**/Results/output*.xml', name: "outputxml_job_${i}"
       }
     }
   }
   echo "Size of Test Group is: ${testGroups.size()}"
   parallel testGroups
+return i
+}
+
+void aggregate_results(int nrjobs){
+	dir ('/Results') {
+		for (int j = 0; j < nrjobs; j++) {
+			unstash "outputxml_job_${j}"
+		}
+	}
 }
