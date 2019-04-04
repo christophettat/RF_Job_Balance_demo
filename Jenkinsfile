@@ -65,6 +65,7 @@ void aggregate_results(int nrjobs){
 			unstash "outputxml_job_${j}"
 			rebot_cmd = rebot_cmd + " output_job_${j}.xml"
 		}
+	sh "ls -ltr"
 	sh rebot_cmd
 	}
 }
