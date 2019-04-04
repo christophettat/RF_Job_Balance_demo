@@ -60,8 +60,11 @@ return splits.size()
 
 void aggregate_results(int nrjobs){
 	dir ('./Results') {
+		rebot_cmd= "rebot --merge"
 		for (int j = 0; j < nrjobs; j++) {
 			unstash "outputxml_job_${j}"
+			rebot_cmd = rebot_cmd + " output_job_${j}.xml"
 		}
+	sh rebot_cmd
 	}
 }
