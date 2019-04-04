@@ -7,7 +7,7 @@ node {
    def nrOfJobs=runTests()      
    }
    
-   Stage ('Aggregate Results')
+   stage ('Aggregate Results')
    aggregate_results(nrOfJobs)
    
 }
