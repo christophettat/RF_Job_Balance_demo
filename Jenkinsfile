@@ -61,18 +61,20 @@ return splits.size()
 
 void aggregate_results(int nrjobs){
   dir ('./Results') {
-		sh "ls -ltr"
 		sh "pwd"
     // get the first output file
     unstash "outputxml_job_0"
     sh "mv output_job_0.xml output.xml"
+    sh "ls -ltr"
     // incremental merge with other jobs outputs 
 		for (int j = 1; j < nrjobs; j++) {
       unstash "outputxml_job_${j}"
       sh "rebot --report NONE --log NONE -o out_incremental.xml --merge output.xml output_job_${j}.xml"
       sh "mv out_incremental.xml output.xml" 
+      sh "ls -ltr"
     }
     // produce the report files
     sh "rebot output.xml"
+    sh "ls -ltr"
   }
 }
