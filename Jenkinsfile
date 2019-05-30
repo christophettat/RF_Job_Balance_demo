@@ -64,6 +64,7 @@ void aggregate_results(int nrjobs){
 		sh "pwd"
     // get the first output file
     unstash "outputxml_job_0"
+    sh "ls -ltr"
     sh "mv output_job_0.xml output.xml"
     sh "ls -ltr"
     // incremental merge with other jobs outputs 
