@@ -60,14 +60,19 @@ return splits.size()
 }
 
 void aggregate_results(int nrjobs){
-		rebot_cmd= "rebot --merge"
-		for (int j = 0; j < nrjobs; j++) {
-			unstash "outputxml_job_${j}"
-			rebot_cmd = rebot_cmd + " output_job_${j}.xml"
-		}
-	dir ('./Results') {
+  dir ('./Results') {
 		sh "ls -ltr"
 		sh "pwd"
-		sh rebot_cmd
-	}
+    // get the first output file
+    unstash "outputxml_job_0"
+    sh "mv output_job_0.xml output.xml"
+    // incremental merge with other jobs outputs 
+		for (int j = 1; j < nrjobs; j++) {
+      unstash "outputxml_job_${j}"
+      sh "rebot --report NONE --log NONE -o out_incremental.xml --merge output.xml output_job_${j}.xml"
+      sh "mv out_incremental.xml output.xml" 
+    }
+    // produce the report files
+    sh "rebot output.xml"
+  }
 }
