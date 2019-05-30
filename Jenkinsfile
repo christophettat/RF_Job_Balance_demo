@@ -73,7 +73,8 @@ void aggregate_results(int nrjobs){
 		for (int j = 1; j < nrjobs; j++) {
       unstash "outputxml_job_${j}"
       sh "rebot --report NONE --log NONE -o out_incremental.xml --merge output.xml output_job_${j}.xml"
-      sh "mv out_incremental.xml output.xml" 
+      sh "mv out_incremental.xml output.xml"  
+      sh "rm output_job_${j}.xml"
       sh "ls -ltr"
     }
     // produce the report files
