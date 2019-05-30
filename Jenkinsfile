@@ -50,7 +50,9 @@ int runTests() {
         /* Archive the test results */
       junit '**/Results/xout.xml'
       //archiveArtifacts artifacts: '**/parallel*.txt', fingerprint: true
-      stash includes: '**/Results/output*.xml', name: "outputxml_job_${i}"
+       dir ('./Results') {
+          stash includes: '**/output*.xml', name: "outputxml_job_${i}"
+        }
       }
     }
   }
